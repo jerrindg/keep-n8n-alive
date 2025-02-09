@@ -1,0 +1,12 @@
+name: Keep n8n Alive - 1 Min
+
+on:
+  schedule:
+    - cron: '* * * * *'  # Runs every 1 minute
+
+jobs:
+  ping:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Keep n8n awake
+        run: curl -I https://n8n-tqqo.onrender.com || true
