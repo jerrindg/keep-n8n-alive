@@ -1,12 +1,15 @@
-name: Keep n8n Alive - 1
+name: Keep n8n Alive
 
 on:
   schedule:
-    - cron: '*/3 * * * *'  # Runs every 3 minutes
+    - cron: '*/5 * * * *'  # Runs every 5 minutes
 
 jobs:
   ping:
     runs-on: ubuntu-latest
     steps:
       - name: Keep n8n awake
-        run: curl -I https://n8n-tqqo.onrender.com || true
+        run: |
+          for i in {1..3}; do  # Retry up to 3 times
+            curl -I https://n8n-tqqo.onrender.com && break || sleep 60
+          done
